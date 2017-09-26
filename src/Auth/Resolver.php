@@ -29,7 +29,7 @@ class Resolver implements ResolverInterface
     public function byId($identifier)
     {
         return $this->query()->where([
-            $this->provider->getSchema()->objectSid() => $identifier,
+            $this->provider->getSchema()->userId() => $identifier,
         ])->first();
     }
 
@@ -62,7 +62,7 @@ class Resolver implements ResolverInterface
      */
     public function authenticate(User $user, array $credentials = [])
     {
-        $username = $user->getFirstAttribute($this->getLdapUsername());
+        $username = $user->getAttribute("dn");
 
         return $this->provider->auth()->attempt($username, $credentials['password']);
     }
@@ -72,7 +72,7 @@ class Resolver implements ResolverInterface
      */
     public function query()
     {
-        $query = $this->provider->search()->users();
+        $query = $this->provider->search()->where('objectClass', 'posixAccount');
 
         foreach ($this->getScopes() as $scope) {
             // Create the scope.

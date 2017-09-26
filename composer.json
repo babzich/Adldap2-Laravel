@@ -4,9 +4,15 @@
     "keywords": ["adldap", "adldap2", "ldap", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/babzich/Adldap2"
+        }
+    ],
     "require": {
         "php": ">=5.6",
-        "adldap2/adldap2": "7.0.*"
+        "adldap2/adldap2": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
